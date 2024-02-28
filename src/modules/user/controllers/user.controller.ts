@@ -40,6 +40,7 @@ import { AuthGuard } from '../../../modules/auth/auth.guard';
 import { Role } from '../../../modules/decorator/roles.decorator';
 import { RolesGuard } from '../../../modules/auth/role.guard';
 import { RoleCollection } from '../../../database/utils/constants';
+import { isDataView } from 'util/types';
 @ApiTags('User APIs')
 @Controller('user')
 export class UserController extends BaseController {
@@ -55,8 +56,10 @@ export class UserController extends BaseController {
         @Body(new TrimBodyPipe(), new JoiValidationPipe())
         dto: CreateUserDto,
     ) {
-        //console.log(dto)
+        console.log(dto)
         try {
+            // console.log(isDataView);
+
             const result = await this.userService.createUser(dto);
             //console.log(new SuccessResponse(result))
             return new SuccessResponse(result);
@@ -158,7 +161,7 @@ export class UserController extends BaseController {
     @ApiResponseSuccess(getUserListSuccessResponseExample)
     @Get()
     async getUserList(
-        @Query(new JoiValidationPipe())
+        @Query()
         query: GetUserListQuery,
     ) {
         //console.log(query)
@@ -191,7 +194,7 @@ export class UserController extends BaseController {
                     }),
                 );
             }
-            return result;
+            return new SuccessResponse(result);
         } catch (error) {
             this.handleError(error);
         }

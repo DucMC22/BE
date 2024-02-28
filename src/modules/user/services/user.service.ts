@@ -12,11 +12,11 @@ import { User } from '../../../database/schemas/user.schema';
 import { UserRepository } from '../user.repository';
 import { UserAttributesForDetail } from '../user.constant';
 import { JwtService } from '@nestjs/jwt';
-import  {jwtConstants}  from '../../../modules/auth/constants';
+import { jwtConstants } from '../../../modules/auth/constants';
 
 @Injectable()
 export class UserService extends BaseService<User, UserRepository> {
-    constructor(private readonly userRepository: UserRepository,private jwtService: JwtService) {
+    constructor(private readonly userRepository: UserRepository, private jwtService: JwtService) {
         super(userRepository);
     }
 
@@ -26,7 +26,7 @@ export class UserService extends BaseService<User, UserRepository> {
             const user: SchemaCreateDocument<User> = {
                 ...(dto as any),
             };
-            const res= await this.userRepository.createOne(user)
+            const res = await this.userRepository.createOne(user)
             // console.log(res)
             return res;
         } catch (error) {
@@ -81,25 +81,30 @@ export class UserService extends BaseService<User, UserRepository> {
     }
 
 
-    async loginUser(dto:loginUserDto)
-    {
-        try{
-            const data=await this.userRepository.findOne(dto);
-            if(!data)
+    async loginUser(dto: loginUserDto) {
+        try {
+            const data = await this.userRepository.findOne(dto);
+            if (!data)
                 return null
-            const access_token=await this.jwtService.signAsync({data},{
-                secret:jwtConstants.secret,
+            const access_token = await this.jwtService.signAsync({ data }, {
+                secret: jwtConstants.secret,
                 expiresIn: jwtConstants.expiresIn,
             });
-            const refresh_token=await this.jwtService.signAsync({data},{
-                secret:jwtConstants.secret,
+            const refresh_token = await this.jwtService.signAsync({ data }, {
+                secret: jwtConstants.secret,
                 expiresIn: jwtConstants.refresh_expiresIn,
             });
             return {
-                access_token:access_token,
-                refresh_token:refresh_token
+                accessToken: {
+                    token: access_token,
+                    expiresIn: jwtConstants.expiresIn
+                },
+                refreshToken: {
+                    token: refresh_token,
+                    expiresIn: jwtConstants.refresh_expiresIn
+                },
             };
-        }catch (error) {
+        } catch (error) {
             this.logger.error(
                 'Error in UserService loginUser: ' + error,
             );
