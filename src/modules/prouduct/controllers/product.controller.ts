@@ -84,7 +84,7 @@ export class ProductController extends BaseController {
     @Patch(':id')
     async updateProduct(
         @Param('id', new JoiValidationPipe(mongoIdSchema)) id: string,
-        @Body(new TrimBodyPipe(), new JoiValidationPipe())
+        @Body(new TrimBodyPipe(), )
         dto: UpdateProductDto,
         @UploadedFile() file?,
     ) {

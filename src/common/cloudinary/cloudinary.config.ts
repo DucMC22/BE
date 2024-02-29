@@ -1,5 +1,5 @@
 export const cloudinaryConfig = {
-    cloud_name: 'dgtjdhrnq',
-    api_key: '356379962535312',
-    api_secret: '1kgyT8lBh3odrCT0YV84tiIhKgE',
+    cloud_name: 'dbegx1sg6',
+    api_key: '745231259218639',
+    api_secret: '-5a_dR4GMDKBgiIsA8fiTSRAEIY',
 };

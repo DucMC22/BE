@@ -36,8 +36,8 @@ export class CreateUserDto {
         maxLength: INPUT_TEXT_MAX_LENGTH,
         default: '',
     })
-    @JoiValidate(Joi.string().trim().max(INPUT_TEXT_MAX_LENGTH).required())
-    password: string;
+    @JoiValidate(Joi.string().trim().max(INPUT_TEXT_MAX_LENGTH).optional())
+    password?: string;
 
     @ApiProperty({
         type: String, // Thay đổi kiểu dữ liệu thành Boolean
