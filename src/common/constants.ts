@@ -38,7 +38,7 @@ export const MIN_PAGE = 1; // min page value
 export const MAX_PAGE_LIMIT = 10000; // max item per one page
 export const MAX_PAGE = 10000; // max page value
 
-export const INPUT_TEXT_MAX_LENGTH = 255;
+export const INPUT_TEXT_MAX_LENGTH = 100000;
 export const FIREBASE_TOKEN_MAX_LENGTH = 2000;
 export const URL_MAX_LENGTH = 2048;
 export const TEXTAREA_MAX_LENGTH = 2000;
